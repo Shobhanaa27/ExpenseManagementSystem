@@ -1,0 +1,19 @@
+package com.infosys.expenseManagementApplication.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infosys.expenseManagementApplication.bean.CustomerExpense;
+import com.infosys.expenseManagementApplication.dao.ExpenseDao;
+
+@Service
+public class CustomerExpenseService {
+	   @Autowired
+	   private ExpenseDao expenseDao;
+       public List<CustomerExpense> getCategorywiseCustomerExpense(String username){
+    	   
+    	   
+       }
+}

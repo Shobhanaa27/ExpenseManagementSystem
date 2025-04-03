@@ -1,0 +1,88 @@
+body {
+    background-color: #f8f9fa; /* Light background */
+}
+
+.customer-card {
+    width: 50%;
+    max-width: 500px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+}
+
+.customer-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    padding: 10px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.customer-details {
+    padding: 15px;
+    text-align: left;
+}
+
+.customer-details p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.customer-details strong {
+    color: #555;
+}
+
+/* Adjust the title styling */
+.text-center h5 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+hr {
+    border: 1px solid #007bff;
+    width: 60%;
+    margin: 10px auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .customer-card {
+        width: 90%;
+    }
+    
+    .text-center h5 {
+        font-size: 24px;
+    }
+}
+/* Hide scrollbar but allow scrolling */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+/* Hide scrollbar for the specific container */
+.customer-container {
+    overflow-y: auto; /* Allows scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.customer-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+.customer-card {
+    border-radius: 10px;
+}
+
+.customer-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

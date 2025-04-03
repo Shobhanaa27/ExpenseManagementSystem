@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    
+}
+.login-background {
+    background: url('D:\Infosys\ExpenseManagement\expense-front\public\images\ExpenseLogin.jpg') no-repeat center center fixed;
+    background-size: contain; /* Show the full image */
+    background-position: center;
+    background-color: #ffffff; /* Set a background color if the image doesn't cover fully */
+    height: 100vh; /* Full screen height */
+    width: 100vw; /* Full screen width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 100% 100%;
+
+}
+.register-background {
+    background: url('D:\Infosys\ExpenseManagement\expense-front\public\images\NewUserRegistration.avif') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 100% 100%;
+
+}
+
+ 
+.container {
+    margin-left: 50px; /* Adjust as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 450px;
+}
+h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+}
+ 
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 1em;
+}
+ 
+h2 a {
+    text-decoration: none;
+    color: #007BFF;
+}
+h2 a:hover {
+    color: #0056b3;
+}
