@@ -7,7 +7,7 @@ import { displayAllCategories } from "../../Services/CategoryService";
 const ExpenseEntry = ({ expenseData, onSave }) => {
   const history = useNavigate();
   const [categories, setCategories] = useState([]);
-  
+  const [message, setMessage] = useState(""); 
   const [expense, setExpense] = useState({
     expenseNumber: "",
     customerId: "",
@@ -38,6 +38,15 @@ const ExpenseEntry = ({ expenseData, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!expense.categoryId || !expense.expenseDate || !expense.amount || !expense.description) {
+      setMessage("All fields are required.");
+      return;
+    }
+    
+    if (expense.amount <= 0) {
+      setMessage("Amount should be greater than 0.");
+      return;
+    }
     const action = expenseData ? updateExpense : saveExpense;
 
     action(expense)
@@ -75,7 +84,8 @@ const ExpenseEntry = ({ expenseData, onSave }) => {
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="card shadow-lg p-4 w-50">
                 <h2 className="text-center mb-4 text-primary">Expense Entry</h2>
-        
+        {message && <div className="alert alert-danger text-center">{message}</div>}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Expense Number:</label>
