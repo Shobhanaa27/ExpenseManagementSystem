@@ -12,7 +12,7 @@ const CategoryAddition=()=>{
 });
 
 const[newId,setNewId]=useState(0);
- 
+const [message, setMessage] = useState(""); 
 let navigate=useNavigate();
 
 const setCategoryId = () => {
@@ -37,6 +37,12 @@ useEffect(()=>{
 
     const categorySave=(event)=>{
         event.preventDefault();
+         const { categoryName, description } = category;
+
+    if (!categoryName || !description) {
+        setMessage("Both Category Name and Description are required.");
+        return;
+    }
         category.categoryId=newId;
        saveCategory(category).then((response) => {
             
@@ -51,7 +57,8 @@ useEffect(()=>{
       <div className="container d-flex justify-content-center align-items-center min-vh-100">
       <div className="card shadow-lg p-4 w-50">
           <h2 className="text-center mb-4 text-primary">Category Addition</h2>
-  
+               {message && <div className="alert alert-danger text-center">{message}</div>}
+
                   <form>
                  <div className = "form-group">
                    <label>Category Id: </label>
