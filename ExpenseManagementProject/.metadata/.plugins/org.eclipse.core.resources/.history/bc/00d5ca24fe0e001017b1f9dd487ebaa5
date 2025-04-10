@@ -1,8 +1,0 @@
-package com.infosys.expenseManagementApplication.service;
-
-import org.springframework.stereotype.Service;
-
-@Service
-public class CustomerExpenseService {
-       public List<Customer> 
-}

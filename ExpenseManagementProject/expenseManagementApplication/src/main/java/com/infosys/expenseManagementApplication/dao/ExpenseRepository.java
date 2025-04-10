@@ -27,7 +27,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, String> {
       @Query("SELECT e.categoryId, SUM(e.amount) FROM Expense e WHERE e.customerId = :customerId GROUP BY e.categoryId")
       List<Object[]> findCategoryWiseTotal(@Param("customerId") String customerId);
 
-      @Query("SELECT e.categoryId, SUM(e.amount) FROM Expense e WHERE e.customerId = :customerId AND e.expenseDate BETWEEN :startDate AND :endDate GROUP BY e.categoryId")
-      List<Object[]> findCategoryWiseTotalByDateRange(@Param("customerId") String customerId, @Param("startDate") String startDate, @Param("endDate") String endDate);
+      //@Query("SELECT e.categoryId, SUM(e.amount) FROM Expense e WHERE e.customerId = :customerId AND e.expenseDate BETWEEN :startDate AND :endDate GROUP BY e.categoryId")
+      //List<Object[]> findCategoryWiseTotalByDateRange(@Param("customerId") String customerId, @Param("startDate") String startDate, @Param("endDate") String endDate);
   }
 

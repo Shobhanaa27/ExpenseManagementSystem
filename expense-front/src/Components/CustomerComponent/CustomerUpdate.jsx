@@ -86,7 +86,7 @@ const CustomerUpdate = () => {
                         <label>Location:</label>
                         <input type="text" name="address" className="form-control" value={customer.address} onChange={onChangeHandler} />
                     </div>
-                   {/* <div className="form-group">
+                   <div className="form-group">
     <label>Status</label>
     <select 
         name="status" 
@@ -97,7 +97,7 @@ const CustomerUpdate = () => {
         <option value="true">Active</option>
         <option value="false">Inactive</option>
     </select>
-</div>*/}
+</div>
 
 
                     <div className="text-center">

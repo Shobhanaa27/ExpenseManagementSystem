@@ -71,10 +71,10 @@ public class ExpenseDaoImpl implements ExpenseDao {
         return repository.findCategoryWiseTotal(customerId);
     }
 
-    @Override
-    public List<Object[]> fetchCategoryWiseTotalByDateRange(String customerId, String startDate, String endDate) {
-        return repository.findCategoryWiseTotalByDateRange(customerId, startDate, endDate);
-    }
+    //@Override
+    //public List<Object[]> fetchCategoryWiseTotalByDateRange(String customerId, String startDate, String endDate) {
+     //  return repository.findCategoryWiseTotalByDateRange(customerId, startDate, endDate);
+    //}
 
 
 

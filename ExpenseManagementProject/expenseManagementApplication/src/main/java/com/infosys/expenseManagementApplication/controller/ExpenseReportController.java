@@ -110,7 +110,7 @@ public class ExpenseReportController {
 
     @GetMapping("/summary/{customerId}")
     public List<Map<String, Object>> getCategoryWiseExpenseSummary(@PathVariable String customerId) {
-        List<Object[]> results = expenseDao.fetchCategoryWiseTotal(customerId);
+        List<Object[]> results = expenseDao.fetchCategoryWiseTotal(customerId);//getting the results here
         return results.stream().map(row -> {
             Map<String, Object> data = new HashMap<>();
             data.put("categoryId", row[0]);
@@ -118,8 +118,8 @@ public class ExpenseReportController {
             return data;
         }).toList();
     }
-
-    @GetMapping("/summary-range")
+    
+    /*@GetMapping("/summary-range")
     public List<Map<String, Object>> getCategoryWiseExpenseSummaryByDateRange(@RequestParam String customerId, @RequestParam String startDate, @RequestParam String endDate) {
         List<Object[]> results = expenseDao.fetchCategoryWiseTotalByDateRange(customerId, startDate, endDate);
         return results.stream().map(row -> {
@@ -128,8 +128,9 @@ public class ExpenseReportController {
             data.put("totalAmount", row[1]);
             return data;
         }).toList();
-    }
-	
+    }*/
+
+    	
 	
 
 

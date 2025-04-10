@@ -9,7 +9,7 @@ const ExpenseEntryCategory = ({ expenseData, onSave }) => {
   const { categoryId } = useParams();
   const history = useNavigate();
   const [categories, setCategories] = useState([]);
-  
+  const [message, setMessage] = useState(""); 
   const [expense, setExpense] = useState({
     expenseNumber: "",
     customerId: "",
@@ -41,6 +41,15 @@ const ExpenseEntryCategory = ({ expenseData, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!expense.expenseDate || !expense.amount || !expense.description) {
+      setMessage("All fields are required.");
+      return;
+    }
+    
+    if (expense.amount <= 0) {
+      setMessage("Amount should be greater than 0.");
+      return;
+    }
     const action = expenseData ? updateExpense : saveExpense;
 
     action(expense)
@@ -80,6 +89,8 @@ return (
                 <div className="row">
                     <div className="card col-md-12 offset-md-3 offset-md-3"></div>
       <div className="card body">
+      {message && <div className="alert alert-danger text-center">{message}</div>}
+
         <h2 className="text-center mb-4">{expenseData ? "Update Expense" : "Add Expense"}</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

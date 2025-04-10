@@ -18,6 +18,7 @@ const CustomerRegistration = () => {
 
     const [newId, setNewId] = useState(0);
     let navigate = useNavigate();
+    const [message, setMessage] = useState("");
 
     const setCustomerId = () => {
         generateCustomerId().then((response) => {
@@ -54,6 +55,17 @@ const CustomerRegistration = () => {
 
     const customerSave = (event) => {
         event.preventDefault();
+        const { customerName, mobile, address, occupation } = customer;
+
+    if (!customerName || !mobile || !address || !occupation) {
+        setMessage("All fields are required.");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        setMessage("Phone number must be 10 digits.");
+        return;
+    }
         customer.customerId = newId;
         saveCustomer(customer).then(() => {
             alert("Customer Registered Successfully");
@@ -65,6 +77,8 @@ const CustomerRegistration = () => {
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
         <div className="card shadow-lg p-4 w-50">
             <h2 className="text-center mb-4 text-primary">Customer Registration</h2>
+            {message && <div className="alert alert-danger text-center">{message}</div>}
+
                             <form>
                                 <div className="form-group">
                                     <label>Customer Id: </label>

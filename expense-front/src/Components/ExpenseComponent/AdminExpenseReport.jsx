@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { displayAllCustomers } from "../../Services/CustomerService";
+import { displayCategoryById } from "../../Services/CategoryService";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AdminExpenseReport = () => {
@@ -26,16 +27,29 @@ const AdminExpenseReport = () => {
 
   const loadExpenseData = () => {
     if (!selectedCustomerId) return;
+  
     fetch(`http://localhost:9797/exp-mng/summary/${selectedCustomerId}`)
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
+        const categoryNames = await Promise.all(
+          data.map((item) =>
+            displayCategoryById(item.categoryId)
+              .then((res) => res.data.categoryName)
+              .catch(() => `Category ${item.categoryId}`) // fallback in case of error
+          )
+        );
+  
+        const totalAmounts = data.map((item) => item.totalAmount);
+  
         setExpenseData({
-          labels: data.map((item) => `Category ${item.categoryId}`),
+          labels: categoryNames,
           datasets: [
             {
               label: "Total Amount Spent",
-              data: data.map((item) => item.totalAmount),
-              backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0"],
+              data: totalAmounts,
+              backgroundColor: [
+                "#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0",
+              ],
             },
           ],
         });

@@ -10,16 +10,32 @@ const RegisterUser=()=>{
         category:"",
     });
     const[password2,setPassword2]=useState("");
+    const [message, setMessage] = useState(""); // For showing inline error messages
     let navigate = useNavigate();
 
 
 
     const saveNewUser = (event) => {
         event.preventDefault();
-        if(expenseUser.password.length<5 || expenseUser.password.length>10){
-            alert("Password must be between 5 to 10 characters long");
-            return;
-        }
+        // Check for empty fields
+       if (!expenseUser.username || !expenseUser.password || !password2 || !expenseUser.email || !expenseUser.category) {
+        setMessage("Please fill in all the fields.");
+      return;
+    }
+
+     // Password length validation
+    if (expenseUser.password.length < 5 || expenseUser.password.length > 10) {
+      setMessage("Password must be between 5 to 10 characters long.");
+    return;
+  }
+
+      // Password match check
+      if (expenseUser.password !== password2) {
+        setMessage("Passwords do not match.");
+       return;
+      }
+
+      setMessage("");
        if(expenseUser.password===password2){
         registerNewUser(expenseUser)
         .then((response) => {
@@ -50,6 +66,7 @@ const RegisterUser=()=>{
        <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="card shadow-lg p-4 w-50">
                 <h2 className="text-center mb-4 text-primary">New User Registration</h2>
+                {message && <p style={{ color: "red", textAlign: "center" }}>{message}</p>}
         
                         <form  method="post">
                             <div className = "form-group">

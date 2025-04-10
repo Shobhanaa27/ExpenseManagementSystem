@@ -18,8 +18,8 @@ const CustomerDetails = () => {
         <div >
           
           <div className="text-center mt-3 mb-3">
-    <h5 className="fw-bold display-6">Customer Profile</h5>
-    <hr className="w-50 mx-auto" />
+              <h5 className="fw-bold display-6">Customer Profile</h5>
+               <hr className="w-50 mx-auto" />
                  <div className="row justify-content-center">
                 {customer ? (
                    <div className="container d-flex justify-content-center align-items-center vh-100">

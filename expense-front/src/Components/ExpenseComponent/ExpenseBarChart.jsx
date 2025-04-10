@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from "chart.js";
+import { displayCategoryById } from "../../Services/CategoryService"; // adjust path as needed
+
 import ExpensePieChart from "./ExpensePieChart"; // Import Pie Chart
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -31,16 +33,27 @@ const ExpenseBarChart = () => {
 
   const fetchData = () => {
     if (!startDate || !endDate) return;
-
+  
     fetch(`http://localhost:9797/exp-mng/expense-total-range?startDate=${startDate}&endDate=${endDate}`)
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
+        // Get category names for each categoryId
+        const categoryNames = await Promise.all(
+          data.map(([categoryId]) =>
+            displayCategoryById(categoryId)
+              .then((res) => res.data.categoryName)
+              .catch(() => `Category ${categoryId}`) // fallback
+          )
+        );
+  
+        const totalAmounts = data.map(([_, totalAmount]) => totalAmount);
+  
         setChartData({
-          labels: data.map(([categoryId]) => `Category ${categoryId}`),
+          labels: categoryNames,
           datasets: [
             {
               label: "Total Amount Spent per Category",
-              data: data.map(([_, totalAmount]) => totalAmount),
+              data: totalAmounts,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(121, 19, 152, 0.6)',
@@ -48,13 +61,14 @@ const ExpenseBarChart = () => {
                 'rgba(2, 50, 3, 0.6)',
                 'rgba(12, 231, 247, 0.6)',
                 'rgba(34, 4, 95, 0.6)',
-            ],
+              ],
             },
           ],
         });
       })
       .catch((error) => console.error("Error fetching expenses:", error));
   };
+  
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "20px", padding: "20px" }}>

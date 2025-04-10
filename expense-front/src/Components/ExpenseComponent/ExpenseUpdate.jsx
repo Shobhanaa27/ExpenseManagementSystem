@@ -42,8 +42,9 @@ const ExpenseUpdate = () => {
     };
 
     return (
-        <div className="container mt-4">
-            <h2 className="text-center">Update Expense</h2>
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+        <div className="card shadow-lg p-4 w-50">
+            <h2 className="text-center mb-4 text-primary">Update Expense</h2>
             <form onSubmit={handleSubmit} className="p-4 shadow-lg rounded bg-light">
                 <div className="mb-3">
                     <label className="form-label">Description</label>
@@ -61,6 +62,7 @@ const ExpenseUpdate = () => {
                 <button type="submit" className="btn btn-primary">Update Expense</button>
                 <button type="button" className="btn btn-secondary ms-2" onClick={() => navigate("/expenseListCust")}>Cancel</button>
             </form>
+            </div>
         </div>
     );
 };

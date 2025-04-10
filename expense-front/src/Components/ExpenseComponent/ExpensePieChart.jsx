@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { displayCategoryById } from "../../Services/CategoryService"; 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ExpensePieChart = () => {
+  //as useState(0) we give the initial value while using in the bar/pie chart component
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [
@@ -25,26 +27,36 @@ const ExpensePieChart = () => {
         ],
       });
       
-  useEffect(() => {
-    fetch("http://localhost:9797/exp-mng/expense-total")
-      .then((response) => response.json())
-      .then((data) => {
-        setChartData({
-          labels: data.map(([categoryId]) => `Category ${categoryId}`),
-          datasets: [
-            {
-              label: "Total Amount Spent per Category",
-              data: data.map(([_, totalAmount]) => totalAmount),
-              backgroundColor: [
-                "#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0",
+      useEffect(() => {
+        fetch("http://localhost:9797/exp-mng/expense-total")
+          .then((response) => response.json())
+          .then(async (data) => {
+            // Fetch category names for each categoryId
+            const categoryNames = await Promise.all(
+              data.map(([categoryId]) =>
+                displayCategoryById(categoryId)
+                  .then((res) => res.data.categoryName)
+                  .catch(() => `Category ${categoryId}`) // fallback
+              )
+            );
+      
+            const totalAmounts = data.map(([_, totalAmount]) => totalAmount);
+      
+            setChartData({
+              labels: categoryNames,
+              datasets: [
+                {
+                  label: "Total Amount Spent per Category",
+                  data: totalAmounts,
+                  backgroundColor: [
+                    "#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0",
+                  ],
+                },
               ],
-            },
-          ],
-        });
-      })
-      .catch((error) => console.error("Error fetching expenses:", error));
-  }, []);
-
+            });
+          })
+          .catch((error) => console.error("Error fetching expenses:", error));
+      }, []);
   return (
 <div style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}>
       <div style={{ width: "80%", maxWidth: "400px" }}>
