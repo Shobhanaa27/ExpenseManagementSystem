@@ -89,7 +89,11 @@ return (
                 <div className="row">
                     <div className="card col-md-12 offset-md-3 offset-md-3"></div>
       <div className="card body">
+
       {message && <div className="alert alert-danger text-center">{message}</div>}
+
+         {message && <div className="alert alert-danger text-center">{message}</div>}
+
 
         <h2 className="text-center mb-4">{expenseData ? "Update Expense" : "Add Expense"}</h2>
         <form onSubmit={handleSubmit}>

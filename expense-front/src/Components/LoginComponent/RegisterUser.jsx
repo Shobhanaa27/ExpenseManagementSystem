@@ -9,16 +9,21 @@ const RegisterUser=()=>{
         email:"",
         category:"",
     });
+    const [message, setMessage] = useState("");
     const[password2,setPassword2]=useState("");
-    const [message, setMessage] = useState(""); // For showing inline error messages
+   
     let navigate = useNavigate();
 
 
 
     const saveNewUser = (event) => {
         event.preventDefault();
+
         // Check for empty fields
        if (!expenseUser.username || !expenseUser.password || !password2 || !expenseUser.email || !expenseUser.category) {
+
+        
+
         setMessage("Please fill in all the fields.");
       return;
     }

@@ -7,7 +7,11 @@ import { displayAllCategories } from "../../Services/CategoryService";
 const ExpenseEntry = ({ expenseData, onSave }) => {
   const history = useNavigate();
   const [categories, setCategories] = useState([]);
+
   const [errors, setErrors] = useState({});
+
+  const [message, setMessage] = useState(""); 
+
   const [expense, setExpense] = useState({
     expenseNumber: "",
     customerId: "",
@@ -59,7 +63,19 @@ const ExpenseEntry = ({ expenseData, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!validateForm()) return;
+
+
+    if (!expense.categoryId || !expense.expenseDate || !expense.amount || !expense.description) {
+      setMessage("All fields are required.");
+      return;
+    }
+    
+    if (expense.amount <= 0) {
+      setMessage("Amount should be greater than 0.");
+      return;
+    }
 
     const action = expenseData ? updateExpense : saveExpense;
 
@@ -91,6 +107,12 @@ const ExpenseEntry = ({ expenseData, onSave }) => {
         <h2 className="text-center mb-4 text-primary">Expense Entry</h2>
 
         <form onSubmit={handleSubmit} noValidate>
+
+            
+        {message && <div className="alert alert-danger text-center">{message}</div>}
+
+       
+
           <div className="mb-3">
             <label className="form-label">Expense Number:</label>
             <input type="text" className="form-control" value={expense.expenseNumber} disabled />
